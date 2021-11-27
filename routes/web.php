@@ -1,8 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,7 @@ use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 /**
  * Conjunto de rutas a las cuales se accede con un prefijo
@@ -30,3 +33,9 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('post', PostController::class);
     Route::resource('category', CategoryController::class);
 });
+
+Auth::routes();
+Route::resource('rol', RolController::class);
+Route::resource('user', UserController::class);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
